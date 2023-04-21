@@ -4,7 +4,7 @@ import {
   Component,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, PRECONNECT_CHECK_BLOCKLIST } from '@angular/common';
 import {
   Card1ObservableComponent,
   Card2StoreComponent,

@@ -14,9 +14,16 @@
           : { background: undefined }
       "
     >
-      <span class="material-icons material-symbols-outlined">
-        <!-- {{ vm.item.icon }} -->
-      </span>
+      <ng-container *ngIf="vm.item.imageUrl">
+        <div class="img-container">
+          <img title="image" ngSrc="{{ vm.item.imageUrl }}" fill />
+        </div>
+      </ng-container>
+      <ng-container *ngIf="vm.item.icon">
+        <span class="material-icons material-symbols-outlined">
+          {{ vm.item.icon }}
+        </span>
+      </ng-container>
     </div>
     <div class="my-card-title card-header-text-ellipsis">
       {{ vm.item.title }}

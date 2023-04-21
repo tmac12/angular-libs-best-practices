@@ -9,12 +9,14 @@ export class CardShowcaseService {
   loadCards$() {
     const cards: Array<CardModel> = [
       {
-        image: '',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/b/b3/Jordan_Lipofsky.jpg',
         title: 'title 1',
         bodyValue: '1',
       },
       {
-        image: '',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/a/a7/LeBron_James_Lakers.jpg',
         title: 'title 2',
         bodyValue: '2',
       },

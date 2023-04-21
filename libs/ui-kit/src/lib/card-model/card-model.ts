@@ -1,6 +1,7 @@
 export interface CardModel {
   title: string;
-  image?: string;
+  imageUrl?: string;
+  icon?: string;
   bodyValue: string;
   footer?: string;
   cssClass?: string;
