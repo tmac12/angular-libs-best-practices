@@ -18,7 +18,7 @@
         "assets": ["apps/showcase/src/favicon.ico", "apps/showcase/src/assets"],
         "styles": ["apps/showcase/src/styles.scss"],
         "stylePreprocessorOptions": {
-          "includePaths": ["libs/my-theme-default/src/scss"]
+          "includePaths": ["libs/my-theme-standard/src/scss"]
         },
         "scripts": []
       },
