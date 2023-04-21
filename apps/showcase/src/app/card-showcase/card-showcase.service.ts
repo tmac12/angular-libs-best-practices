@@ -1,5 +1,5 @@
+import { CardModel } from '@angular-libs-best-practices/ui-kit';
 import { Injectable } from '@angular/core';
-import { CardModel } from 'libs/ui-kit/src/lib/card-model/card-model';
 import { of, switchMap, timer } from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,14 @@ export class CardShowcaseService {
     ];
 
     return timer(2000).pipe(switchMap(() => of(cards)));
+  }
+
+  loadNewCard$() {
+    const cards: CardModel = {
+      title: 'title 3',
+      bodyValue: '345',
+    };
+    return timer(1000).pipe(switchMap(() => of(cards)));
   }
   constructor() {}
 }

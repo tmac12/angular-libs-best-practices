@@ -17,6 +17,7 @@ export class Card1ObservableComponent {
   );
   item$ = this.itemChangedSubject.asObservable();
   _item: CardModel | undefined;
+
   get item(): CardModel | undefined {
     return this._item;
   }

@@ -15,8 +15,10 @@ import { CardModel } from '../card-model/card-model';
 })
 export class Card2StoreComponent {
   vm$ = this.store.vm$;
+
   @Input() set item(value: CardModel) {
     this.store.addItem(of<CardModel>(value));
   }
+
   constructor(private store: StoreService) {}
 }
