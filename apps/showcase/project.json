@@ -17,6 +17,9 @@
         "tsConfig": "apps/showcase/tsconfig.app.json",
         "assets": ["apps/showcase/src/favicon.ico", "apps/showcase/src/assets"],
         "styles": ["apps/showcase/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/my-theme-default/src/scss"]
+        },
         "scripts": []
       },
       "configurations": {
