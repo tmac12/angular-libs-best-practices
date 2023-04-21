@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Card1ObservableComponent } from '@angular-libs-best-practices/ui-kit';
-import { CardModel } from 'libs/ui-kit/card-model/card-model';
+import {
+  Card1ObservableComponent,
+  CardModel,
+} from '@angular-libs-best-practices/ui-kit';
 
 @Component({
   selector: 'angular-libs-best-practices-card-showcase',
