@@ -1,0 +1,28 @@
+<p>card-2-store works!</p>
+<div class="my-card" *ngIf="vm$ | async as vm">
+  <div class="messages">
+    <p class="error" *ngIf="vm.error">{{ vm.error }}</p>
+  </div>
+  <ng-container *ngIf="vm.loading; else NotLoading"> Loading... </ng-container>
+  <ng-template #NotLoading>
+    <div
+      class="my-card-icon"
+      [ngClass]="vm.item.cssClass"
+      [ngStyle]="
+        vm.item.color
+          ? { background: vm.item.color }
+          : { background: undefined }
+      "
+    >
+      <span class="material-icons material-symbols-outlined">
+        <!-- {{ vm.item.icon }} -->
+      </span>
+    </div>
+    <div class="my-card-title card-header-text-ellipsis">
+      {{ vm.item.title }}
+    </div>
+    <div class="bm-card-value">
+      {{ vm.item.bodyValue }}
+    </div>
+  </ng-template>
+</div>

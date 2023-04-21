@@ -1,2 +1,16 @@
 <p>card-showcase works!</p>
 <card-1-observable [item]="card"></card-1-observable>
+
+<h1>Card created by service</h1>
+
+<div>
+  <ng-container
+    *ngrxLet="cards$ as cardsLoaded; error as e; suspenseTpl: loading"
+  >
+    <ng-container *ngFor="let card of cardsLoaded">
+      <card-2-store [item]="card"> </card-2-store>
+    </ng-container>
+    <h4 *ngIf="e">ERROR: {{ e | json }}</h4>
+  </ng-container>
+  <ng-template #loading> Loading ... </ng-template>
+</div>
