@@ -1,0 +1,13 @@
+<p>chips works!</p>
+<ng-container *ngrxLet="tags$ as tags">
+  <mat-chip-listbox selectable multiple #chipListbox>
+    <!-- <mat-chip-option *ngFor="let chip of tags" color="accent"> -->
+    <mat-chip-option
+      *ngFor="let chip of tags"
+      color="accent"
+      [style.--mdc-chip-elevated-container-color]="colorVar"
+    >
+      {{ chip.description }}
+    </mat-chip-option>
+  </mat-chip-listbox>
+</ng-container>
