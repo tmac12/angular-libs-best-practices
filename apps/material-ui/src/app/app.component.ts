@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { ChipsComponent } from './chips/chips.component';
-import { DashComponent } from './dash/dash.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, ChipsComponent, DashComponent],
+  imports: [RouterOutlet],
   selector: 'angular-libs-best-practices-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: ` <router-outlet></router-outlet> `,
 })
 export class AppComponent {
   title = 'material-ui';
