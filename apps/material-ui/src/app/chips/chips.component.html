@@ -1,7 +1,21 @@
-<p>chips works!</p>
+<p>Chips with multiple selection</p>
 <ng-container *ngrxLet="tags$ as tags">
   <mat-chip-listbox selectable multiple #chipListbox>
-    <!-- <mat-chip-option *ngFor="let chip of tags" color="accent"> -->
+    <mat-chip-option *ngFor="let chip of tags" color="accent">
+      {{ chip.description }}
+    </mat-chip-option>
+  </mat-chip-listbox>
+  <p>Selected tags</p>
+  <ul>
+    <li *ngFor="let item of selectedTags$ | async">
+      <span>{{ item.description }}</span>
+    </li>
+  </ul>
+</ng-container>
+<br />
+<p>Chips with custom style color</p>
+<ng-container *ngrxLet="tags$ as tags">
+  <mat-chip-listbox selectable multiple>
     <mat-chip-option
       *ngFor="let chip of tags"
       color="accent"
