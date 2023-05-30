@@ -2,3 +2,6 @@
 
 //import default theme
 @use 'index.scss';
+
+// regular style toast
+@import 'ngx-toastr/toastr';
