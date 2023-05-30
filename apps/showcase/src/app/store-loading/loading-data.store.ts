@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { EMPTY, Observable, catchError } from 'rxjs';
-import { FakeDataService } from './fake-data.service';
+import { FakeDataService } from '../store-error/fake-data.service';
+import { EMPTY, Observable, catchError, delay } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const enum LoadingState {
@@ -16,7 +16,7 @@ export interface ErrorState {
 
 export type CallState = LoadingState | ErrorState;
 
-interface FakeDataState {
+interface LoadingDataState {
   items: string[];
   callState: CallState;
 }
@@ -31,7 +31,7 @@ function getError(callState: CallState): LoadingState | string | null {
 }
 
 @Injectable()
-export class FakeDataStore extends ComponentStore<FakeDataState> {
+export class LoadingDataStore extends ComponentStore<LoadingDataState> {
   fakeDataService = inject(FakeDataService);
 
   constructor() {
@@ -65,36 +65,40 @@ export class FakeDataStore extends ComponentStore<FakeDataState> {
   );
 
   // UPDATERS
-  readonly updateError = this.updater((state: FakeDataState, error: string) => {
-    return {
-      ...state,
-      callState: {
-        errorMsg: error,
-      },
-    };
-  });
-  readonly setLoading = this.updater((state: FakeDataState) => {
+  readonly updateError = this.updater(
+    (state: LoadingDataState, error: string) => {
+      return {
+        ...state,
+        callState: {
+          errorMsg: error,
+        },
+      };
+    }
+  );
+  readonly setLoading = this.updater((state: LoadingDataState) => {
     return {
       ...state,
       callState: LoadingState.LOADING,
     };
   });
-  readonly setLoaded = this.updater((state: FakeDataState) => {
+  readonly setLoaded = this.updater((state: LoadingDataState) => {
     return {
       ...state,
       callState: LoadingState.LOADED,
     };
   });
-  readonly updateItem = this.updater((state: FakeDataState, item: string) => {
-    return {
-      ...state,
-      error: '',
-      items: [...state.items, item],
-    };
-  });
+  readonly updateItem = this.updater(
+    (state: LoadingDataState, item: string) => {
+      return {
+        ...state,
+        error: '',
+        items: [...state.items, item],
+      };
+    }
+  );
 
   setList = this.updater(
-    (state: FakeDataState, list: string[]): FakeDataState => {
+    (state: LoadingDataState, list: string[]): LoadingDataState => {
       return {
         ...state,
         items: list,
@@ -103,9 +107,10 @@ export class FakeDataStore extends ComponentStore<FakeDataState> {
   );
 
   // EFFECTS
-  readonly getFakeDataErrors = this.effect(() => {
+  readonly getFakeDatas = this.effect(() => {
     this.setLoading();
-    return this.fakeDataService.getFakeDataErrors().pipe(
+    return this.fakeDataService.getFakeDatas().pipe(
+      delay(600),
       tapResponse<string[]>(
         this.setList,
         //(error: { message: string }) => console.error(error.message),
@@ -115,29 +120,10 @@ export class FakeDataStore extends ComponentStore<FakeDataState> {
           } else {
             this.updateError('error on getFakeDataErrors ' + error);
           }
+          console.error('there is an error: ' + error);
         },
         () => this.setLoaded()
-      ),
-      catchError(() => EMPTY)
+      )
     );
   });
-
-  //   readonly getFakeDatas = this.effect(() => {
-  //     this.setLoading();
-  //     return this.fakeDataService.getFakeDatas().pipe(
-  //       tapResponse<string[]>(
-  //         this.setList,
-  //         //(error: { message: string }) => console.error(error.message),
-  //         (error) => {
-  //           if (error instanceof HttpErrorResponse) {
-  //             this.updateError('error on getFakeDataErrors ' + error.message);
-  //           } else {
-  //             this.updateError('error on getFakeDataErrors ' + error);
-  //           }
-  //           console.error('there is an error: ' + error);
-  //         },
-  //         () => this.setLoaded()
-  //       )
-  //     );
-  //   });
 }

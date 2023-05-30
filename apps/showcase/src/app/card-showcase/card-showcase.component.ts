@@ -12,16 +12,16 @@ import {
   StoreService,
 } from '@angular-libs-best-practices/ui-kit';
 import { CardShowcaseService } from './card-showcase.service';
-import { LetModule, PushModule } from '@ngrx/component';
-import { EMPTY, Subject, exhaustMap, of } from 'rxjs';
+import { LetDirective, PushPipe } from '@ngrx/component';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'angular-libs-best-practices-card-showcase',
   standalone: true,
   imports: [
     CommonModule,
-    LetModule,
-    PushModule,
+    LetDirective,
+    PushPipe,
     Card1ObservableComponent,
     Card2StoreComponent,
   ],
