@@ -3,6 +3,8 @@ import { CardModel } from '../card-model/card-model';
 import { ComponentStore } from '@ngrx/component-store';
 import { Observable, tap } from 'rxjs';
 
+//Thanks to: https://medium.com/angular-in-depth/ngrx-how-and-where-to-handle-loading-and-error-states-of-ajax-calls-6613a14f902d
+
 export const enum LoadingState {
   INIT = 'INIT',
   LOADING = 'LOADING',

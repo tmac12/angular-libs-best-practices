@@ -1,0 +1,12 @@
+<p>store-error works!</p>
+Example to handle errors with component store
+<ng-container *ngrxLet="vm$ as vm">
+  <ng-container *ngIf="vm.items">
+    <ul>
+      <li *ngFor="let item of vm.items">
+        <span>{{ item }}</span>
+      </li>
+    </ul>
+  </ng-container>
+  <h4 *ngIf="vm.error">ERROR VM: {{ vm.error }}</h4>
+</ng-container>
