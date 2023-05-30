@@ -42,3 +42,6 @@ vm$ = this.fakeDataStore.vm$.pipe(
     })
   );
 ```
+
+## Resources
+- https://indepth.dev/posts/1408/how-to-manage-angular-state-in-your-components
