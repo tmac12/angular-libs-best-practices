@@ -33,6 +33,8 @@ export class StoreLoadingComponent implements OnInit {
     tap((t) => {
       if (t.loading) this.loadingService.show();
       else this.loadingService.hide();
+      if (t.items) console.log(JSON.stringify(t.items));
+      console.log(JSON.stringify(t));
     })
   );
 

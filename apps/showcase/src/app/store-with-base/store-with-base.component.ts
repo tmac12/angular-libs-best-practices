@@ -7,6 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { UsersStore } from './users.store';
 import { LetDirective } from '@ngrx/component';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'angular-libs-best-practices-store-with-base',
@@ -18,11 +19,17 @@ import { LetDirective } from '@ngrx/component';
   providers: [UsersStore],
 })
 export class StoreWithBaseComponent implements OnInit {
-  fakeDataStoreNew = inject(UsersStore);
+  usersStore = inject(UsersStore);
 
-  vm$ = this.fakeDataStoreNew.vm$;
+  vm$ = this.usersStore.vm$.pipe(
+    tap((t) => {
+      t.loading ? console.log('loading') : console.log('loaded');
+      if (t.users) console.log('users:' + JSON.stringify(t.users));
+      console.log('vm object:' + JSON.stringify(t));
+    })
+  );
 
   ngOnInit(): void {
-    this.fakeDataStoreNew.getFakeDatas();
+    this.usersStore.getUsers();
   }
 }

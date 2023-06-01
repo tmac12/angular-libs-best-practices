@@ -55,7 +55,7 @@ export class BaseComponentStore<
   );
 
   // UPDATERS
-  readonly updateError = this.updater((state, error: string) => {
+  readonly updateError = this.updater((state, error: string): T => {
     return {
       ...state,
       callState: {
@@ -64,7 +64,7 @@ export class BaseComponentStore<
     };
   });
 
-  readonly setLoading = this.updater((state) => {
+  readonly setLoading = this.updater((state): T => {
     return {
       ...state,
       data: undefined,
@@ -72,14 +72,14 @@ export class BaseComponentStore<
     };
   });
 
-  readonly setLoaded = this.updater((state) => {
+  readonly setLoaded = this.updater((state): T => {
     return {
       ...state,
       callState: LoadingState.LOADED,
     };
   });
 
-  readonly updateItem = this.updater((state, data: T['data']) => {
+  readonly updateItem = this.updater((state, data: T['data']): T => {
     return {
       ...state,
       data,
