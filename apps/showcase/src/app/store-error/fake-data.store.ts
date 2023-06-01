@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { EMPTY, Observable, catchError } from 'rxjs';
+import { Observable, exhaustMap } from 'rxjs';
 import { FakeDataService } from './fake-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -103,24 +103,27 @@ export class FakeDataStore extends ComponentStore<FakeDataState> {
   );
 
   // EFFECTS
-  readonly getFakeDataErrors = this.effect(() => {
-    this.setLoading();
-    return this.fakeDataService.getFakeDataErrors().pipe(
-      tapResponse<string[]>(
-        this.setList,
-        //(error: { message: string }) => console.error(error.message),
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.updateError('error on getFakeDataErrors ' + error.message);
-          } else {
-            this.updateError('error on getFakeDataErrors ' + error);
-          }
-        },
-        () => this.setLoaded()
-      ),
-      catchError(() => EMPTY)
-    );
-  });
+  readonly getFakeDataErrors = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      exhaustMap(() => {
+        this.setLoading();
+        return this.fakeDataService.getFakeDataErrors().pipe(
+          tapResponse<string[]>(
+            this.setList,
+            //(error: { message: string }) => console.error(error.message),
+            (error) => {
+              if (error instanceof HttpErrorResponse) {
+                this.updateError('error on getFakeDataErrors ' + error.message);
+              } else {
+                this.updateError('error on getFakeDataErrors ' + error);
+              }
+            },
+            () => this.setLoaded()
+          )
+        );
+      })
+    )
+  );
 
   //   readonly getFakeDatas = this.effect(() => {
   //     this.setLoading();

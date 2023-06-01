@@ -34,6 +34,6 @@ export class StoreErrorComponent implements OnInit {
 
   ngOnInit(): void {
     // this.fakeDataStore.getFakeDatas();
-    // this.fakeDataStore.getFakeDataErrors();
+    this.fakeDataStore.getFakeDataErrors();
   }
 }

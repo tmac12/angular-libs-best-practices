@@ -1,15 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { FakeDataService } from '../store-error/fake-data.service';
-import {
-  EMPTY,
-  Observable,
-  catchError,
-  delay,
-  exhaustMap,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { Observable, delay, exhaustMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const enum LoadingState {
