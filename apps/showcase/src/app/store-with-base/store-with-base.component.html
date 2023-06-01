@@ -1,0 +1,12 @@
+<p>store-with-base works!</p>
+Example to handle component store with a base class
+<ng-container *ngrxLet="vm$ as vm">
+  <ng-container *ngIf="vm.names">
+    <ul>
+      <li *ngFor="let item of vm.names">
+        <span>{{ item.name }}</span>
+      </li>
+    </ul>
+  </ng-container>
+  <h4 *ngIf="vm.error">ERROR VM: {{ vm.error }}</h4>
+</ng-container>

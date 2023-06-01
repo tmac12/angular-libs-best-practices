@@ -93,7 +93,7 @@ export class FakeDataStore extends ComponentStore<FakeDataState> {
     };
   });
 
-  setList = this.updater(
+  readonly setList = this.updater(
     (state: FakeDataState, list: string[]): FakeDataState => {
       return {
         ...state,

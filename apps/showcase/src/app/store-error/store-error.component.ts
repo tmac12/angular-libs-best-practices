@@ -6,10 +6,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FakeDataStore } from './fake-data.store';
-import { FakeDataService } from './fake-data.service';
 import { LetDirective } from '@ngrx/component';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
+import { FakeDataStoreNew } from './fake-data-new.store';
 
 @Component({
   selector: 'angular-libs-best-practices-store-error',
@@ -22,6 +22,7 @@ import { tap } from 'rxjs';
 })
 export class StoreErrorComponent implements OnInit {
   fakeDataStore = inject(FakeDataStore);
+
   toastrService = inject(ToastrService);
 
   vm$ = this.fakeDataStore.vm$.pipe(
@@ -33,7 +34,6 @@ export class StoreErrorComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    // this.fakeDataStore.getFakeDatas();
     this.fakeDataStore.getFakeDataErrors();
   }
 }
