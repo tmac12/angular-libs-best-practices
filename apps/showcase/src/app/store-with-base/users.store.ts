@@ -44,7 +44,7 @@ export class UsersStore extends BaseComponentStore<GenericState<UserData[]>> {
             (error: string) => this.updateError(error),
             () => {
               console.log('finish tapResponse');
-              //this.setLoaded();
+              this.setLoaded();
             }
           )
         );
