@@ -1,7 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { FakeDataService } from '../store-error/fake-data.service';
-import { EMPTY, Observable, catchError, delay } from 'rxjs';
+import {
+  EMPTY,
+  Observable,
+  catchError,
+  delay,
+  exhaustMap,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const enum LoadingState {
@@ -99,6 +107,7 @@ export class LoadingDataStore extends ComponentStore<LoadingDataState> {
 
   setList = this.updater(
     (state: LoadingDataState, list: string[]): LoadingDataState => {
+      console.log('loading-data.store setList' + JSON.stringify(list));
       return {
         ...state,
         items: list,
@@ -107,23 +116,29 @@ export class LoadingDataStore extends ComponentStore<LoadingDataState> {
   );
 
   // EFFECTS
-  readonly getFakeDatas = this.effect(() => {
-    this.setLoading();
-    return this.fakeDataService.getFakeDatas().pipe(
-      delay(600),
-      tapResponse<string[]>(
-        this.setList,
-        //(error: { message: string }) => console.error(error.message),
-        (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.updateError('error on getFakeDataErrors ' + error.message);
-          } else {
-            this.updateError('error on getFakeDataErrors ' + error);
-          }
-          console.error('there is an error: ' + error);
-        },
-        () => this.setLoaded()
-      )
-    );
-  });
+
+  //create effects without parameters: https://ngrx.io/guide/component-store/effect#calling-an-effect-without-parameters
+  readonly getFakeDatas = this.effect<void>((trigger$) =>
+    trigger$.pipe(
+      exhaustMap(() => {
+        this.setLoading();
+        return this.fakeDataService.getFakeDatas().pipe(
+          delay(600),
+          tapResponse<string[]>(
+            this.setList,
+            //(error: { message: string }) => console.error(error.message),
+            (error) => {
+              if (error instanceof HttpErrorResponse) {
+                this.updateError('error on getFakeDataErrors ' + error.message);
+              } else {
+                this.updateError('error on getFakeDataErrors ' + error);
+              }
+              console.error('there is an error: ' + error);
+            },
+            () => this.setLoaded()
+          )
+        );
+      })
+    )
+  );
 }
