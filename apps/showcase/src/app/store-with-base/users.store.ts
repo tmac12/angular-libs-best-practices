@@ -5,24 +5,21 @@ import {
 } from '@angular-libs-best-practices/store-common';
 import { Injectable, inject } from '@angular/core';
 import { Observable, exhaustMap } from 'rxjs';
-import { FakeData, FakeDataService } from './fake-data.service';
 import { tapResponse } from '@ngrx/component-store';
+import { UserData, UserService } from './user.service';
 
-interface FakeDataViewModel {
-  names: FakeData[];
+interface UserViewModel {
+  names: UserData[];
   loading: boolean;
   error: string | null;
 }
 
 @Injectable()
-export class FakeDataStoreNew extends BaseComponentStore<
-  GenericState<FakeData[]>
-> {
-  fakeDataService = inject(FakeDataService);
+export class UsersStore extends BaseComponentStore<GenericState<UserData[]>> {
+  userService = inject(UserService);
 
   readonly names$ = this.select((state) => state.data);
-  //   readonly vm$ = this.select(
-  readonly vm$: Observable<FakeDataViewModel> = this.select(
+  readonly vm$: Observable<UserViewModel> = this.select(
     this.baseSelector,
     this.names$,
     (state, names) => ({ ...state, names })
@@ -41,7 +38,7 @@ export class FakeDataStoreNew extends BaseComponentStore<
     trigger$.pipe(
       exhaustMap(() => {
         this.setLoading();
-        return this.fakeDataService.getFakeDatasTyped().pipe(
+        return this.userService.getUsers().pipe(
           tapResponse(
             (v) => this.updateItem(v),
             (error: string) => this.updateError(error),

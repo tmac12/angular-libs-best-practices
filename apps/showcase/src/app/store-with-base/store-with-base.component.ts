@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FakeDataStoreNew } from '../store-error/fake-data-new.store';
+import { UsersStore } from './users.store';
 import { LetDirective } from '@ngrx/component';
 
 @Component({
@@ -15,10 +15,10 @@ import { LetDirective } from '@ngrx/component';
   templateUrl: './store-with-base.component.html',
   styleUrls: ['./store-with-base.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [FakeDataStoreNew],
+  providers: [UsersStore],
 })
 export class StoreWithBaseComponent implements OnInit {
-  fakeDataStoreNew = inject(FakeDataStoreNew);
+  fakeDataStoreNew = inject(UsersStore);
 
   vm$ = this.fakeDataStoreNew.vm$;
 

@@ -9,7 +9,6 @@ import { FakeDataStore } from './fake-data.store';
 import { LetDirective } from '@ngrx/component';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
-import { FakeDataStoreNew } from './fake-data-new.store';
 
 @Component({
   selector: 'angular-libs-best-practices-store-error',
