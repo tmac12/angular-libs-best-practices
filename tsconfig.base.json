@@ -18,6 +18,9 @@
       "@angular-libs-best-practices/my-theme-standard": [
         "libs/my-theme-standard/src/index.ts"
       ],
+      "@angular-libs-best-practices/store-common": [
+        "libs/store-common/src/index.ts"
+      ],
       "@angular-libs-best-practices/ui-kit": ["libs/ui-kit/src/index.ts"]
     }
   },
