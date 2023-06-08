@@ -21,11 +21,10 @@ import { SettingsComponent } from '../settings/settings.component';
 })
 export class HomeComponent {
   settingsService = inject(SettingsService);
-  //backgroundColor = 'yellow';
-  //backgroundColor = signal('yellow');
+
   backgroundColor = computed(() =>
-    this.settingsService.widgetData().title == 'red' ? 'red' : 'yellow'
-  ); //infer Signal<boolean>
+    this.settingsService.widgetData().title == 'red' ? 'red' : undefined
+  ); //infer Signal<red | undefined>
 
   //widgetData = signal<WidgetData>({} as WidgetData);
 

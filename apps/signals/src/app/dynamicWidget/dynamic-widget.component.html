@@ -2,9 +2,7 @@
   <div
     class="card-container"
     [ngStyle]="
-      backgroundColor
-        ? { background: backgroundColor }
-        : { background: 'yellow' }
+      backgroundColor ? { background: backgroundColor } : { background: '' }
     "
   >
     <h1 class="card-title">{{ data.title | uppercase }}</h1>
