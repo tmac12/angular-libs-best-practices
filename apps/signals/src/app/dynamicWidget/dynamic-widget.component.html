@@ -1,0 +1,18 @@
+<ng-container *ngIf="data">
+  <div
+    class="card-container"
+    [ngStyle]="
+      backgroundColor
+        ? { background: backgroundColor }
+        : { background: 'yellow' }
+    "
+  >
+    <h1 class="card-title">{{ data.title | uppercase }}</h1>
+    <ul *ngIf="data.items; else elseBlock">
+      <li *ngFor="let item of data.items">
+        <div>{{ item.description }}: {{ item.value }}</div>
+      </li>
+    </ul>
+    <ng-template #elseBlock>No data items.</ng-template>
+  </div>
+</ng-container>

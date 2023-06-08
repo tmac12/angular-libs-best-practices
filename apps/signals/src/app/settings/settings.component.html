@@ -1,0 +1,15 @@
+<h1>SETTINGS</h1>
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title"> Title (try to write red) </label>
+    <input id="title" type="text" formControlName="title" />
+  </div>
+  <div>
+    <label for="status"> status </label>
+    <input id="status" type="text" formControlName="status" />
+  </div>
+
+  <button [disabled]="checkoutForm.invalid" class="button" type="submit">
+    Confirm
+  </button>
+</form>
