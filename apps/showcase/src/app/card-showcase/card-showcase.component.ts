@@ -70,10 +70,10 @@ export class CardShowcaseComponent implements AfterViewInit {
     setTimeout(() => {
       console.log('end delay');
 
-      const newCard = this.getNewCard();
+      // const newCard = this.getNewCard();
 
       //update value via store
-      this.storeService.addItem(of<CardModel>(newCard));
+      //this.storeService.addItem(of<CardModel>(newCard));
 
       //update value changing object doesn't work
       //this.card = { ...newCard };
