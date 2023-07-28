@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { FakeDataService } from '../store-error/fake-data.service';
-import { Observable, delay, exhaustMap } from 'rxjs';
+import { Observable, delay, exhaustMap, pipe, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export const enum LoadingState {
@@ -110,15 +110,41 @@ export class LoadingDataStore extends ComponentStore<LoadingDataState> {
   // EFFECTS
 
   //create effects without parameters: https://ngrx.io/guide/component-store/effect#calling-an-effect-without-parameters
-  readonly getFakeDatas = this.effect<void>((trigger$) =>
-    trigger$.pipe(
-      exhaustMap(() => {
-        this.setLoading();
-        return this.fakeDataService.getFakeDatas().pipe(
+  // readonly getFakeDatas = this.effect<void>((trigger$) =>
+  //   trigger$.pipe(
+  //     exhaustMap(() => {
+  //       this.setLoading();
+  //       return this.fakeDataService.getFakeDatas().pipe(
+  //         delay(600),
+  //         tapResponse<string[]>(
+  //           this.setList,
+  //           //(error: { message: string }) => console.error(error.message),
+  //           (error) => {
+  //             if (error instanceof HttpErrorResponse) {
+  //               this.updateError('error on getFakeDataErrors ' + error.message);
+  //             } else {
+  //               this.updateError('error on getFakeDataErrors ' + error);
+  //             }
+  //             console.error('there is an error: ' + error);
+  //           },
+  //           () => this.setLoaded()
+  //         )
+  //       );
+  //     })
+  //   )
+  // );
+
+  // fetchTodo takes no input parameters
+  readonly getFakeDatas = this.effect<void>(
+    pipe(
+      tap(() => this.patchState({ callState: LoadingState.LOADING })),
+      switchMap(() =>
+        this.fakeDataService.getFakeDatas().pipe(
           delay(600),
-          tapResponse<string[]>(
+          tapResponse(
+            // success logic
             this.setList,
-            //(error: { message: string }) => console.error(error.message),
+            // failure logic
             (error) => {
               if (error instanceof HttpErrorResponse) {
                 this.updateError('error on getFakeDataErrors ' + error.message);
@@ -129,8 +155,8 @@ export class LoadingDataStore extends ComponentStore<LoadingDataState> {
             },
             () => this.setLoaded()
           )
-        );
-      })
+        )
+      )
     )
   );
 }
